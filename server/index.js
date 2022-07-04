@@ -72,7 +72,7 @@ app.post("/auth/login", async (req, res) => {
         const isValidPassword = await bcrypt.compare(req.body.password, user._doc.passwordHash);
 
         if(!isValidPassword) {
-            return res.status(404).json({
+            return res.status(400).json({
                 message: "Неверный логин или пароль",
             })
         }
