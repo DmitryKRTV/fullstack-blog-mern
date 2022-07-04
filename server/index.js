@@ -64,15 +64,15 @@ app.post("/auth/login", async (req, res) => {
         const user = await UserModule.findOne({ email: req.body.email});
 
         if(!user) {
-            return res.status(404).json({
+            return req.status(404).json({
                 message: "Неверный логин или пароль",
             })
         }
 
         const isValidPassword = await bcrypt.compare(req.body.password, user._doc.passwordHash);
 
-        if(!user) {
-            return res.status(404).json({
+        if(!isValidPassword) {
+            return req.status(404).json({
                 message: "Неверный логин или пароль",
             })
         }
